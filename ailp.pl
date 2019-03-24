@@ -7,6 +7,15 @@
  *  assignmentN folder.
  */
 
+test_wiki_links :-
+  bagof(A, wp:actor(A), As),
+  test_wiki_link(As).
+test_wiki_link([A|As]) :-
+  ( wp:actor_links(A, _) -> write(A), write(' OK\n')
+  ; otherwise            -> write(A), write(' not working\n')
+  ), test_wiki_link(As).
+test_wiki_link([]) :- halt.
+
 find_submission(Assignment, Submission) :-
   directory_files('./', Files),
   ( Assignment='assignment1' -> find_file('assignment1_', Files, Submission)
@@ -29,6 +38,7 @@ translate_input_options(Args, Assignment_name, Part) :-
   ; Args=['assignment2','part2'|[]] -> Assignment_name='wp',Part=2
   ; Args=['assignment2','part3'|[]] -> Assignment_name='oscar',Part=3
   ; Args=['assignment2','part4'|[]] -> Assignment_name='oscar',Part=4
+  ; Args=['test_wiki_links'|[]]     -> Assignment_name='oscar',Part=99
   ; otherwise                       -> fail
   ).
 
@@ -141,6 +151,7 @@ get_assignment_details :-  % get assignment details
                            find_submission('wp', WpSubmission),
                            load_files([assignment_root(WpSubmission)], [silent(true)]),
                            retract(part_module(1)), assertz(part_module(4))
+    ; Assignment_part=99 -> use_module(assignment_library('wp_library')),test_wiki_links
     ; otherwise         -> true
     ).
 
