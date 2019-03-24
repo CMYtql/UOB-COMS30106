@@ -1,7 +1,10 @@
 # Mac OS files
 **/.DS_Store
 
-# Student answer
+# Marks and student lists
+/*.csv
+
+# Student answers
 /assigment1_*.pl
 /assignment1_*.pl
 /assigment2_*.pl
