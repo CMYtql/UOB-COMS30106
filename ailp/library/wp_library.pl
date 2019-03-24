@@ -63,7 +63,7 @@ wp_query2URL(Q,URL) :-
   atomic_list_concat([
     'http://en.wikipedia.org/w/api.php?format=json&action=query&titles=',
     QQ,
-    '&prop=revisions&rvprop=content&rawcontinue'
+    '&prop=revisions&rvprop=content&rvslots=main&rawcontinue'
     ],URL).
 
 %%%%%%%%%% JSON operations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
