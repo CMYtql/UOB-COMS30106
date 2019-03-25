@@ -16,6 +16,10 @@ test_wiki_link([A|As]) :-
   ), test_wiki_link(As).
 test_wiki_link([]) :- halt.
 
+test_wiki_deduction :-
+  ( wp:subset_links(_, _) -> write('Undistinguishable actors! Please update wikipedia identities.\n\n')
+  ; otherwise             -> write('All actors can be uniquely identified.\n\n')).
+
 find_submission(Assignment, Submission) :-
   directory_files('./', Files),
   ( Assignment='assignment1' -> find_file('assignment1_', Files, Submission)
@@ -72,6 +76,8 @@ read_in_choice(Assignment_name, Part) :-
        write('e.g. ./ailp.pl assignment1'),nl,
        write('or'),nl,
        write('e.g. ./ailp.pl assignment2 part1'),nl,
+       write('Alternatively, to test the wikipedia links and identities do:'),nl,
+       write('  ./ailp.pl test_wiki_links'),nl,
        nl,
        write('~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+'),nl,
        nl,
@@ -151,7 +157,7 @@ get_assignment_details :-  % get assignment details
                            find_submission('wp', WpSubmission),
                            load_files([assignment_root(WpSubmission)], [silent(true)]),
                            retract(part_module(1)), assertz(part_module(4))
-    ; Assignment_part=99 -> use_module(assignment_library('wp_library')),test_wiki_links
+    ; Assignment_part=99 -> use_module(assignment_library('wp_library')),test_wiki_deduction,test_wiki_links
     ; otherwise         -> true
     ).
 
