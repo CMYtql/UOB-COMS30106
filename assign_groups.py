@@ -137,9 +137,9 @@ if __name__ ==  "__main__":
             for r in rc:
                 pair_me_up.remove(r)
             random_groups.append(rc)
-    groups += random_groups
 
-    for i in groups:
+    all_groups = groups + random_groups
+    for i in all_groups:
         for j in i:
             try:
                 uids.remove(j)
@@ -149,6 +149,7 @@ if __name__ ==  "__main__":
     print(uids)
     print("~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+")
 
+    print("Too large groups:")
     too_large_groups = []
     for group in groups:
         if len(group) > 3:
@@ -168,9 +169,19 @@ if __name__ ==  "__main__":
     for i in uids:
         fen += i + ", " + GROUP_PATTERN%gc + "\n"
         gc += 1
+
+    print("Random groups:")
+    for i in random_groups:
+        group_info = [GROUP_PATTERN%gc]
+        for j in i:
+            fen += j + ", " + GROUP_PATTERN%gc + "\n"
+            group_info.append('{}@bristol.ac.uk'.format(j))
+        print(' '.join(group_info))
+        gc += 1
+    print("~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+")
+
     for i in range(1, gc):
         gs += GROUP_PATTERN%i + ", "
-    print("~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+")
     print("Groups assigned so far:")
     print(gs[:-2])
     with open("group_assignment.csv", "w") as ff:
