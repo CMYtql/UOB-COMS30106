@@ -14,10 +14,10 @@ HELP_WANTED = "=Please find me someone to work with="
 if __name__ ==  "__main__":
     if len(sys.argv) < 3:
         msg = "The first argument should be csv file from Google Spreadsheet.\n"
-        msg += "The second argument should be csv file form FEN with student list."
+        msg += "The second argument should be csv file form SAFE with student list."
         sys.exit(msg)
 
-    # read in usernames downloaded form FEN
+    # read in usernames downloaded form SAFE
     students = []
     uids = []
     with open(sys.argv[2], "r") as usernames:
